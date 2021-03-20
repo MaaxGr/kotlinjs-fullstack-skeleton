@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.flywaydb:flyway-gradle-plugin:7.3.1"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+apply plugin: 'org.flywaydb.flyway'
+apply plugin: 'kotlinx-serialization'
+
+group 'com.pilaster'
+version '1'
+mainClassName = "io.ktor.server.netty.EngineMain"
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+dependencies {
+    implementation project(':common')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation("io.ktor:ktor-websockets:$ktor_version")
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+
+    // JSON
+    implementation "io.ktor:ktor-gson:$ktor_version"
+
+    // Exposed
+    implementation "org.jetbrains.exposed:exposed-core:0.28.1"
+    implementation "org.jetbrains.exposed:exposed-dao:0.28.1"
+    implementation "org.jetbrains.exposed:exposed-jdbc:0.28.1"
+    compile("mysql:mysql-connector-java:5.1.48")
+
+    // Flyway
+    implementation "org.flywaydb:flyway-core:7.3.1"
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+
+}
